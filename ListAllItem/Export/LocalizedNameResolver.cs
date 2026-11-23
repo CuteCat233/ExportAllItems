@@ -81,7 +81,7 @@ namespace ListAllItem.Export
             }
             catch (Exception ex)
             {
-                this.Monitor.Log($"解析显示名称参数失败（{assetName}:{key}）：{ex.Message}", LogLevel.Trace);
+                this.Monitor.Log($"Could not resolve display name arguments ({assetName}:{key}): {ex.Message}", LogLevel.Trace);
                 return text;
             }
 
@@ -119,7 +119,7 @@ namespace ListAllItem.Export
             }
             catch (Exception ex)
             {
-                this.Monitor.Log($"无法加载本地化资源 {assetName}（{this.Language}）：{ex.Message}", LogLevel.Trace);
+                this.Monitor.Log($"Could not load localized asset {assetName} ({this.Language}): {ex.Message}", LogLevel.Trace);
             }
 
             this.Cache[assetName] = data;

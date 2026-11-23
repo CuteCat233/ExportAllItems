@@ -26,13 +26,13 @@ namespace ListAllItem
 
             if (!string.IsNullOrWhiteSpace(this.Config.ExportKey) && this.ExportKey is null)
             {
-                this.Monitor.Log($"无法识别快捷键 \"{this.Config.ExportKey}\"，已禁用快捷键；仍可使用控制台指令 lia_export。", LogLevel.Warn);
+                this.Monitor.Log($"Invalid export key \"{this.Config.ExportKey}\". The shortcut is disabled; use the console command lia_export instead.", LogLevel.Warn);
             }
 
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
             helper.ConsoleCommands.Add(
                 "lia_export",
-                "导出物品、地点与 NPC 的多语言显示名称（JSON/CSV）。",
+                "Export multilingual display names (JSON/CSV) for items, locations, and NPCs.",
                 this.OnExportCommand
             );
         }
@@ -59,7 +59,7 @@ namespace ListAllItem
         {
             if (!Context.IsWorldReady)
             {
-                this.Monitor.Log("请先进入存档再导出。", LogLevel.Warn);
+                this.Monitor.Log("Please enter a save before exporting.", LogLevel.Warn);
                 return;
             }
 
@@ -71,21 +71,21 @@ namespace ListAllItem
         {
             try
             {
-                this.Monitor.Log("开始收集并导出数据……", LogLevel.Info);
+                this.Monitor.Log("Collecting and exporting data...", LogLevel.Info);
 
                 EntityExporter exporter = new(this.Helper, this.Monitor);
                 ExportResult result = exporter.Export();
 
                 this.Monitor.Log(
-                    $"已导出 {result.EntityCount} 条记录；语言：{string.Join(", ", result.Languages)}。",
+                    $"Exported {result.EntityCount} records. Languages: {string.Join(", ", result.Languages)}.",
                     LogLevel.Info
                 );
-                this.Monitor.Log($"JSON：{result.JsonPath}", LogLevel.Info);
-                this.Monitor.Log($"CSV ：{result.CsvPath}", LogLevel.Info);
+                this.Monitor.Log($"JSON: {result.JsonPath}", LogLevel.Info);
+                this.Monitor.Log($"CSV: {result.CsvPath}", LogLevel.Info);
             }
             catch (Exception ex)
             {
-                this.Monitor.Log($"导出失败：{ex}", LogLevel.Error);
+                this.Monitor.Log($"Export failed: {ex}", LogLevel.Error);
             }
         }
 

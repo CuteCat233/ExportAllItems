@@ -329,7 +329,7 @@ namespace ListAllItem.Export
             }
             catch (Exception ex)
             {
-                this.Monitor.Log($"无法加载 {assetName}，将跳过该分类：{ex.Message}", LogLevel.Warn);
+                this.Monitor.Log($"Could not load {assetName}; skipping this category: {ex.Message}", LogLevel.Warn);
                 return null;
             }
         }
@@ -384,7 +384,7 @@ namespace ListAllItem.Export
             }
             catch (Exception ex)
             {
-                this.Monitor.Log($"无法加载本地化数据 {assetName}（{language}）：{ex.Message}", LogLevel.Trace);
+                this.Monitor.Log($"Could not load localized data {assetName} ({language}): {ex.Message}", LogLevel.Trace);
                 return null;
             }
         }
@@ -462,7 +462,7 @@ namespace ListAllItem.Export
             }
             catch (Exception ex)
             {
-                monitor.Log($"无法获取游戏内容目录，将尝试全部语言：{ex.Message}", LogLevel.Trace);
+                monitor.Log($"Could not determine the game content root; trying all languages: {ex.Message}", LogLevel.Trace);
             }
 
             foreach (LanguageCode code in Enum.GetValues(typeof(LanguageCode)))
