@@ -129,6 +129,8 @@ Stardew Valley/Mods/ListAllItem/exports/entities.csv
 
 模组会检查游戏 `Content/Strings/Objects.<语言代码>.xnb` 是否存在，以此判断该语言是否随游戏安装。英文始终包含。缺少某项翻译时会自动回退到英文。
 
+导出时会直接按 `资源名.语言代码` 加载对应语言的资源（例如 `Strings/Objects.ja-JP`），而不是调用会复用缓存的 `Load(asset, language)`，避免所有语言都返回当前游戏语言。
+
 ## 限制
 
 - 只导出显示名称（DisplayName），不导出描述、对话、事件、邮件等文本。
@@ -149,4 +151,4 @@ dotnet build ListAllItem.sln
 
 ## 许可证
 
-本项目采用 [MIT License](LICENSE)，版权所有 (c) 2026 WKQ。
+本项目采用 [MIT License](LICENSE)，版权所有 (c) 2026 CuteCat233。

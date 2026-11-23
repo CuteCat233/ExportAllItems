@@ -380,7 +380,7 @@ namespace ListAllItem.Export
         {
             try
             {
-                return Game1.content.Load<Dictionary<string, string>>(assetName, language);
+                return LocalizedAssetLoader.Load<Dictionary<string, string>>(assetName, language);
             }
             catch (Exception ex)
             {

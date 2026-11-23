@@ -1,6 +1,5 @@
 using System.Globalization;
 using StardewModdingAPI;
-using StardewValley;
 using StardewValley.TokenizableStrings;
 using LanguageCode = StardewValley.LocalizedContentManager.LanguageCode;
 
@@ -113,15 +112,14 @@ namespace ListAllItem.Export
             if (this.Cache.TryGetValue(assetName, out Dictionary<string, string>? cached))
                 return cached;
 
-            string normalized = assetName.Replace('\\', '/');
             Dictionary<string, string>? data = null;
             try
             {
-                data = Game1.content.Load<Dictionary<string, string>>(normalized, this.Language);
+                data = LocalizedAssetLoader.Load<Dictionary<string, string>>(assetName, this.Language);
             }
             catch (Exception ex)
             {
-                this.Monitor.Log($"无法加载本地化资源 {normalized}（{this.Language}）：{ex.Message}", LogLevel.Trace);
+                this.Monitor.Log($"无法加载本地化资源 {assetName}（{this.Language}）：{ex.Message}", LogLevel.Trace);
             }
 
             this.Cache[assetName] = data;
