@@ -68,7 +68,7 @@ Stardew Valley/Mods/ListAllItem/exports/entities.csv
   "generatedAtUtc": "2026-11-23T06:30:00.0000000Z",
   "languages": ["en", "zh-CN", "de-DE"],
   "counts": {
-    "Item": 2179,
+    "Item": 2207,
     "Location": 90,
     "NPC": 48
   },
