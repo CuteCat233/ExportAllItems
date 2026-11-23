@@ -1,9 +1,15 @@
 {
   "Name": "ListAllItem",
   "Author": "CuteCat233",
-  "Version": "1.0.0",
+  "Version": "1.1.0",
   "Description": "Export multilingual display names (JSON/CSV) for items, locations, NPCs, and other named game data.",
   "UniqueID": "CuteCat233.ListAllItem",
   "EntryDll": "ListAllItem.dll",
-  "MinimumApiVersion": "4.0.0"
+  "MinimumApiVersion": "4.0.0",
+  "Dependencies": [
+    {
+      "UniqueID": "spacechase0.GenericModConfigMenu",
+      "IsRequired": false
+    }
+  ]
 }

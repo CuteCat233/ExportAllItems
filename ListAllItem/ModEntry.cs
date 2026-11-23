@@ -1,5 +1,6 @@
 using System;
 using ListAllItem.Export;
+using ListAllItem.Integrations;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
@@ -8,11 +9,17 @@ namespace ListAllItem
     /// <summary>模组入口点。</summary>
     public class ModEntry : Mod
     {
+        /// <summary>GMCM 的 UniqueID；GMCM 是可选依赖。</summary>
+        private const string ConfigMenuUniqueId = "spacechase0.GenericModConfigMenu";
+
         /// <summary>当前配置。</summary>
         private ModConfig Config = new();
 
-        /// <summary>导出快捷键；配置无法识别时为 <c>null</c>。</summary>
-        private SButton? ExportKey;
+        /// <summary>当前导出快捷键；<see cref="SButton.None"/> 表示禁用。</summary>
+        private SButton ExportKey = SButton.F8;
+
+        /// <summary>GMCM API；未安装 GMCM 时为 <c>null</c>。</summary>
+        private IGenericModConfigMenuApi? ConfigMenu;
 
         /*********
         ** 公共方法
@@ -22,14 +29,10 @@ namespace ListAllItem
         public override void Entry(IModHelper helper)
         {
             this.Config = helper.ReadConfig<ModConfig>();
-            this.ExportKey = ParseKey(this.Config.ExportKey);
-
-            if (!string.IsNullOrWhiteSpace(this.Config.ExportKey) && this.ExportKey is null)
-            {
-                this.Monitor.Log($"Invalid export key \"{this.Config.ExportKey}\". The shortcut is disabled; use the console command lia_export instead.", LogLevel.Warn);
-            }
+            this.ExportKey = this.Config.ExportKey;
 
             helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+            helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
             helper.ConsoleCommands.Add(
                 "lia_export",
                 "Export multilingual display names (JSON/CSV) for items, locations, and NPCs.",
@@ -40,6 +43,71 @@ namespace ListAllItem
         /*********
         ** 私有方法
         *********/
+        /// <summary>在游戏加载完成后注册可选的 GMCM 配置页面。</summary>
+        /// <param name="sender">事件发送者。</param>
+        /// <param name="e">事件数据。</param>
+        private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
+        {
+            // GMCM 是可选依赖：未安装、未加载或 API 不可用时都直接跳过。
+            if (!this.Helper.ModRegistry.IsLoaded(ConfigMenuUniqueId))
+                return;
+
+            try
+            {
+                this.ConfigMenu = this.Helper.ModRegistry.GetApi<IGenericModConfigMenuApi>(ConfigMenuUniqueId);
+                if (this.ConfigMenu is null)
+                    return;
+
+                this.RegisterConfigMenu();
+            }
+            catch (Exception ex)
+            {
+                this.ConfigMenu = null;
+                this.Monitor.Log($"Could not initialize Generic Mod Config Menu integration: {ex.Message}", LogLevel.Warn);
+            }
+        }
+
+        /// <summary>注册 GMCM 设置项。</summary>
+        private void RegisterConfigMenu()
+        {
+            IGenericModConfigMenuApi configMenu = this.ConfigMenu!;
+
+            configMenu.Register(
+                this.ModManifest,
+                () =>
+                {
+                    this.Config = new ModConfig();
+                    this.ExportKey = this.Config.ExportKey;
+                    this.Helper.WriteConfig(this.Config);
+                },
+                () =>
+                {
+                    this.Helper.WriteConfig(this.Config);
+                    this.ExportKey = this.Config.ExportKey;
+                }
+            );
+
+            configMenu.AddSectionTitle(this.ModManifest, () => "Export settings");
+            configMenu.AddKeybind(
+                this.ModManifest,
+                () => this.Config.ExportKey,
+                value =>
+                {
+                    this.Config.ExportKey = value;
+                    this.ExportKey = value;
+                },
+                () => "Export key",
+                () => "Press this key in-game to export. Set to None to disable the shortcut."
+            );
+            configMenu.AddBoolOption(
+                this.ModManifest,
+                () => this.Config.ExportAllLanguages,
+                value => this.Config.ExportAllLanguages = value,
+                () => "Export all languages",
+                () => "When disabled, only English and the current game language are exported."
+            );
+        }
+
         /// <summary>在玩家按下键盘、控制器或鼠标上的按钮后引发。</summary>
         /// <param name="sender">对象 sender 表示调用此方法的对象。</param>
         /// <param name="e">对象 e 表示事件数据。</param>
@@ -48,7 +116,7 @@ namespace ListAllItem
             if (!Context.IsWorldReady)
                 return;
 
-            if (this.ExportKey == e.Button)
+            if (this.ExportKey != SButton.None && e.Button == this.ExportKey)
                 this.Export();
         }
 
@@ -73,7 +141,7 @@ namespace ListAllItem
             {
                 this.Monitor.Log("Collecting and exporting data...", LogLevel.Info);
 
-                EntityExporter exporter = new(this.Helper, this.Monitor);
+                EntityExporter exporter = new(this.Helper, this.Monitor, this.Config.ExportAllLanguages);
                 ExportResult result = exporter.Export();
 
                 this.Monitor.Log(
@@ -87,17 +155,6 @@ namespace ListAllItem
             {
                 this.Monitor.Log($"Export failed: {ex}", LogLevel.Error);
             }
-        }
-
-        /// <summary>把配置中的文本解析为 SMAPI 按键。</summary>
-        /// <param name="value">配置值，例如 <c>F8</c>。</param>
-        /// <returns>解析成功时返回按键；否则返回 <c>null</c>。</returns>
-        private static SButton? ParseKey(string? value)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                return null;
-
-            return Enum.TryParse(value.Trim(), ignoreCase: true, out SButton key) ? key : null;
         }
     }
 }

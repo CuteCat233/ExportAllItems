@@ -12,6 +12,7 @@
   - NPC：`Data/Characters` 中的角色
   - 其他 DisplayName 数据：电影院零食 `CONCESSION:`、增益 `BUFF:`、能力 `POWER:`、农场动物 `FARMANIMAL:`、宠物 `PET:`、人体模型 `MANNEQUIN:`、矿车目的地 `MINECART:`、怪物消灭目标 `SLAYERQUEST:`、被动节日 `PASSIVEFESTIVAL:`
 - 自动检测游戏已安装的语言（英文、中文、日文、德文等），导出所有语言的 DisplayName。
+- 可选支持 Generic Mod Config Menu（GMCM），在游戏内修改导出快捷键和语言范围。
 - 同时导出：
   - **JSON**：按实体组织，包含 `displayNames` 多语言映射
   - **CSV**：`Key,语言1,语言2,...`，UTF-8 with BOM，方便 Excel 打开
@@ -54,11 +55,21 @@ Stardew Valley/Mods/ListAllItem/exports/entities.csv
 
 ```json
 {
-  "ExportKey": "F8"
+  "ExportKey": "F8",
+  "ExportAllLanguages": true
 }
 ```
 
-- `ExportKey`：触发导出的按键，默认为 `F8`；设为空字符串可禁用快捷键（控制台指令仍然可用）。
+- `ExportKey`：触发导出的按键，默认为 `F8`；设为 `None` 可禁用快捷键（控制台指令仍然可用）。
+- `ExportAllLanguages`：默认为 `true`，导出所有已安装语言；设为 `false` 时只导出英文和当前游戏语言。
+
+## 游戏内设置（GMCM）
+
+[Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) 是**可选依赖**：
+
+- 安装后，可以在游戏内修改 `ExportKey` 和 `ExportAllLanguages`。
+- 未安装、未加载或 GMCM API 不可用时，模组仍会正常加载和导出，设置通过 `config.json` 修改。
+- GMCM 注册失败只会记录一条警告，不影响导出功能。
 
 ## 输出格式
 
