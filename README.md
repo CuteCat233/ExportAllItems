@@ -146,3 +146,7 @@ dotnet build ListAllItem.sln
 ```
 
 未启动游戏进行实际导出测试。
+
+## 许可证
+
+本项目采用 [MIT License](LICENSE)，版权所有 (c) 2026 WKQ。
