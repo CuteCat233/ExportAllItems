@@ -71,6 +71,7 @@ namespace ListAllItem
         private void RegisterConfigMenu()
         {
             IGenericModConfigMenuApi configMenu = this.ConfigMenu!;
+            string Translate(string key) => this.Helper.Translation.Get(key).ToString();
 
             configMenu.Register(
                 this.ModManifest,
@@ -87,7 +88,7 @@ namespace ListAllItem
                 }
             );
 
-            configMenu.AddSectionTitle(this.ModManifest, () => "Export settings");
+            configMenu.AddSectionTitle(this.ModManifest, () => Translate("config.section-title"));
             configMenu.AddKeybind(
                 this.ModManifest,
                 () => this.Config.ExportKey,
@@ -96,15 +97,15 @@ namespace ListAllItem
                     this.Config.ExportKey = value;
                     this.ExportKey = value;
                 },
-                () => "Export key",
-                () => "Press this key in-game to export. Set to None to disable the shortcut."
+                () => Translate("config.export-key.name"),
+                () => Translate("config.export-key.tooltip")
             );
             configMenu.AddBoolOption(
                 this.ModManifest,
                 () => this.Config.ExportAllLanguages,
                 value => this.Config.ExportAllLanguages = value,
-                () => "Export all languages",
-                () => "When disabled, only English and the current game language are exported."
+                () => Translate("config.export-all-languages.name"),
+                () => Translate("config.export-all-languages.tooltip")
             );
         }
 

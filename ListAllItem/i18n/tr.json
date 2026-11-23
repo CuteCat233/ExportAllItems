@@ -1,0 +1,7 @@
+{
+  "config.section-title": "Dışa aktarma ayarları",
+  "config.export-key.name": "Dışa aktarma tuşu",
+  "config.export-key.tooltip": "Dışa aktarmak için oyunda bu tuşa basın. Kısayolu devre dışı bırakmak için Yok olarak ayarlayın.",
+  "config.export-all-languages.name": "Tüm dilleri dışa aktar",
+  "config.export-all-languages.tooltip": "Devre dışı bırakıldığında yalnızca İngilizce ve mevcut oyun dili dışa aktarılır."
+}

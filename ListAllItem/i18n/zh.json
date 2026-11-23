@@ -1,0 +1,7 @@
+{
+  "config.section-title": "导出设置",
+  "config.export-key.name": "导出快捷键",
+  "config.export-key.tooltip": "在游戏中按下此键进行导出。设为“无”可禁用快捷键。",
+  "config.export-all-languages.name": "导出所有语言",
+  "config.export-all-languages.tooltip": "关闭后只导出英文和当前游戏语言。"
+}

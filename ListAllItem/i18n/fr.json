@@ -1,0 +1,7 @@
+{
+  "config.section-title": "Paramètres d'exportation",
+  "config.export-key.name": "Touche d'exportation",
+  "config.export-key.tooltip": "Appuyez sur cette touche en jeu pour exporter. Réglez-la sur Aucune pour désactiver le raccourci.",
+  "config.export-all-languages.name": "Exporter toutes les langues",
+  "config.export-all-languages.tooltip": "Si cette option est désactivée, seuls l'anglais et la langue actuelle du jeu sont exportés."
+}

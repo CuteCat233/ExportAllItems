@@ -1,0 +1,7 @@
+{
+  "config.section-title": "エクスポート設定",
+  "config.export-key.name": "エクスポートキー",
+  "config.export-key.tooltip": "ゲーム中にこのキーを押すとエクスポートします。「なし」に設定するとショートカットを無効にします。",
+  "config.export-all-languages.name": "すべての言語をエクスポート",
+  "config.export-all-languages.tooltip": "無効にすると、英語と現在のゲーム言語のみをエクスポートします。"
+}
