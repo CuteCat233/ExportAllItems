@@ -1,9 +1,9 @@
 {
   "Name": "ListAllItem",
-  "Author": "WKQ",
+  "Author": "CuteCat233",
   "Version": "1.0.0",
-  "Description": "导出物品、地点与 NPC 的多语言显示名称（JSON/CSV）。",
-  "UniqueID": "WKQ.ListAllItem",
+  "Description": "Export multilingual display names (in JSON and CSV) for items, locations, and NPCs.",
+  "UniqueID": "CuteCat233.ListAllItem",
   "EntryDll": "ListAllItem.dll",
   "MinimumApiVersion": "4.0.0"
 }
