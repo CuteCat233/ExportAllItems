@@ -6,10 +6,16 @@ using StardewModdingAPI;
 using StardewValley;
 using StardewValley.GameData;
 using StardewValley.GameData.BigCraftables;
+using StardewValley.GameData.Buffs;
 using StardewValley.GameData.Characters;
+using StardewValley.GameData.FarmAnimals;
 using StardewValley.GameData.Locations;
+using StardewValley.GameData.Minecarts;
+using StardewValley.GameData.Movies;
 using StardewValley.GameData.Objects;
 using StardewValley.GameData.Pants;
+using StardewValley.GameData.Pets;
+using StardewValley.GameData.Powers;
 using StardewValley.GameData.Shirts;
 using StardewValley.GameData.Tools;
 using StardewValley.GameData.Weapons;
@@ -126,6 +132,25 @@ namespace ListAllItem.Export
         private List<RawEntity> CollectEntities()
         {
             List<RawEntity> entities = new();
+
+            // 把字典型数据资源中所有带 DisplayName 的条目加入导出列表。
+            void AddNamed<T>(string assetName, string type, string keyPrefix, Func<T, string?> getDisplayName)
+            {
+                Dictionary<string, T>? data = this.TryLoadData<T>(assetName);
+                if (data is null)
+                    return;
+
+                foreach (KeyValuePair<string, T> entry in data)
+                {
+                    entities.Add(RawEntity.FromToken(
+                        type,
+                        keyPrefix + entry.Key,
+                        entry.Key,
+                        getDisplayName(entry.Value),
+                        entry.Key
+                    ));
+                }
+            }
 
             // 物品：对象、大物件、武器、工具、裤子、衬衫、饰品、靴子、帽子、家具。
             Dictionary<string, ObjectData>? objects = this.TryLoadData<ObjectData>("Data/Objects");
@@ -317,15 +342,80 @@ namespace ListAllItem.Export
                 }
             }
 
+            // 其他标准数据资源中带 DisplayName 的短名称条目。
+            AddNamed<BuffData>("Data/Buffs", "Buff", "BUFF:", data => data.DisplayName);
+            AddNamed<PowersData>("Data/Powers", "Power", "POWER:", data => data.DisplayName);
+            AddNamed<FarmAnimalData>("Data/FarmAnimals", "FarmAnimal", "FARMANIMAL:", data => data.DisplayName);
+            AddNamed<PetData>("Data/Pets", "Pet", "PET:", data => data.DisplayName);
+            AddNamed<MannequinData>("Data/Mannequins", "Mannequin", "MANNEQUIN:", data => data.DisplayName);
+            AddNamed<MonsterSlayerQuestData>("Data/MonsterSlayerQuests", "MonsterSlayerQuest", "SLAYERQUEST:", data => data.DisplayName);
+            AddNamed<PassiveFestivalData>("Data/PassiveFestivals", "PassiveFestival", "PASSIVEFESTIVAL:", data => data.DisplayName);
+
+            // 电影院零食是列表而不是字典。
+            List<ConcessionItemData>? concessions = this.TryLoadAsset<List<ConcessionItemData>>("Data/Concessions");
+            if (concessions is not null)
+            {
+                for (int i = 0; i < concessions.Count; i++)
+                {
+                    ConcessionItemData item = concessions[i];
+                    string id = string.IsNullOrWhiteSpace(item.Id)
+                        ? (string.IsNullOrWhiteSpace(item.Name) ? i.ToString(CultureInfo.InvariantCulture) : item.Name!)
+                        : item.Id;
+                    string fallbackName = string.IsNullOrWhiteSpace(item.Name) ? id : item.Name!;
+
+                    entities.Add(RawEntity.FromToken(
+                        "Concession",
+                        "CONCESSION:" + id,
+                        id,
+                        item.DisplayName,
+                        fallbackName
+                    ));
+                }
+            }
+
+            // 矿车目的地嵌在每个网络的 Destinations 列表里，而不是字典值本身。
+            Dictionary<string, MinecartNetworkData>? minecartNetworks = this.TryLoadData<MinecartNetworkData>("Data/Minecarts");
+            if (minecartNetworks is not null)
+            {
+                foreach (KeyValuePair<string, MinecartNetworkData> network in minecartNetworks)
+                {
+                    List<MinecartDestinationData>? destinations = network.Value.Destinations;
+                    if (destinations is null)
+                        continue;
+
+                    for (int i = 0; i < destinations.Count; i++)
+                    {
+                        MinecartDestinationData destination = destinations[i];
+                        string id = string.IsNullOrWhiteSpace(destination.Id)
+                            ? i.ToString(CultureInfo.InvariantCulture)
+                            : destination.Id;
+
+                        entities.Add(RawEntity.FromToken(
+                            "MinecartDestination",
+                            "MINECART:" + network.Key + "/" + id,
+                            id,
+                            destination.DisplayName,
+                            id
+                        ));
+                    }
+                }
+            }
+
             return entities;
         }
 
-        /// <summary>加载游戏数据资源；加载失败时记录警告并跳过该分类。</summary>
+        /// <summary>加载字典型游戏数据资源；加载失败时记录警告并跳过该分类。</summary>
         private Dictionary<string, T>? TryLoadData<T>(string assetName)
+        {
+            return this.TryLoadAsset<Dictionary<string, T>>(assetName);
+        }
+
+        /// <summary>加载任意类型的游戏数据资源；加载失败时记录警告并跳过该分类。</summary>
+        private T? TryLoadAsset<T>(string assetName) where T : class
         {
             try
             {
-                return this.Helper.GameContent.Load<Dictionary<string, T>>(assetName);
+                return this.Helper.GameContent.Load<T>(assetName);
             }
             catch (Exception ex)
             {

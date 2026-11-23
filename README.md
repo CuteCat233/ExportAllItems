@@ -1,8 +1,8 @@
 # ListAllItem
 
-一个 Stardew Valley 1.6 / SMAPI 模组：把游戏数据中的**物品、地点、NPC** 逐个列出来，并导出每个条目的**多语言显示名称（DisplayName）**。
+一个 Stardew Valley 1.6 / SMAPI 模组：把游戏标准数据资源中**所有带 DisplayName 的短名称条目**（物品、地点、NPC、电影院零食、增益、能力、农场动物、宠物、人体模型、矿车目的地、怪物消灭目标、被动节日）逐个列出来，并导出每个条目的**多语言显示名称（DisplayName）**。
 
-不包含对话、事件、邮件等内容，只导出实体的键与显示名称。
+不包含 Description、对话、事件、邮件、Tooltips 等长文本，只导出实体的键与显示名称。
 
 ## 功能
 
@@ -10,6 +10,7 @@
   - 物品：对象 `(O)`、大物件 `(BC)`、武器 `(W)`、工具 `(T)`、裤子 `(P)`、衬衫 `(S)`、饰品 `(TR)`、靴子 `(B)`、帽子 `(H)`、家具 `(F)`
   - 地点：`Data/Locations` 中的地点
   - NPC：`Data/Characters` 中的角色
+  - 其他 DisplayName 数据：电影院零食 `CONCESSION:`、增益 `BUFF:`、能力 `POWER:`、农场动物 `FARMANIMAL:`、宠物 `PET:`、人体模型 `MANNEQUIN:`、矿车目的地 `MINECART:`、怪物消灭目标 `SLAYERQUEST:`、被动节日 `PASSIVEFESTIVAL:`
 - 自动检测游戏已安装的语言（英文、中文、日文、德文等），导出所有语言的 DisplayName。
 - 同时导出：
   - **JSON**：按实体组织，包含 `displayNames` 多语言映射
@@ -70,7 +71,16 @@ Stardew Valley/Mods/ListAllItem/exports/entities.csv
   "counts": {
     "Item": 2207,
     "Location": 90,
-    "NPC": 48
+    "NPC": 48,
+    "Concession": 24,
+    "Buff": 29,
+    "Power": 36,
+    "FarmAnimal": 14,
+    "Pet": 3,
+    "Mannequin": 4,
+    "MinecartDestination": 4,
+    "MonsterSlayerQuest": 12,
+    "PassiveFestival": 4
   },
   "entities": [
     {
@@ -100,6 +110,15 @@ Stardew Valley/Mods/ListAllItem/exports/entities.csv
         "en": "Pelican Town",
         "zh-CN": "鹈鹕镇"
       }
+    },
+    {
+      "type": "Concession",
+      "key": "CONCESSION:0",
+      "id": "0",
+      "displayNames": {
+        "en": "Cotton Candy",
+        "zh-CN": "棉花糖"
+      }
     }
   ]
 }
@@ -107,9 +126,9 @@ Stardew Valley/Mods/ListAllItem/exports/entities.csv
 
 字段说明：
 
-- `type`：`Item` / `Location` / `NPC`
-- `key`：导出用的唯一键。物品为限定物品 ID；地点与 NPC 分别带 `LOCATION:`、`NPC:` 前缀，避免 CSV 中重名
-- `id`：游戏数据资源中的原始键（物品数字 ID、地点内部名、NPC 内部名）
+- `type`：`Item` / `Location` / `NPC` / `Concession` / `Buff` / `Power` / `FarmAnimal` / `Pet` / `Mannequin` / `MinecartDestination` / `MonsterSlayerQuest` / `PassiveFestival`
+- `key`：导出用的唯一键。物品为限定物品 ID；地点与 NPC 分别带 `LOCATION:`、`NPC:` 前缀；其他类型带 `CONCESSION:`、`BUFF:`、`POWER:`、`FARMANIMAL:`、`PET:`、`MANNEQUIN:`、`SLAYERQUEST:`、`PASSIVEFESTIVAL:` 前缀；矿车目的地为 `MINECART:<network>/<id>`
+- `id`：游戏数据资源中的原始键（物品数字 ID、地点内部名、NPC 内部名，矿车目的地为目的地 ID）
 - `displayNames`：语言代码 → 该语言下的 DisplayName
 
 ### CSV
@@ -119,6 +138,7 @@ Stardew Valley/Mods/ListAllItem/exports/entities.csv
 "(O)16","Wild Horseradish","野山葵"
 "NPC:Abigail","Abigail","阿比盖尔"
 "LOCATION:Town","Pelican Town","鹈鹕镇"
+"CONCESSION:0","Cotton Candy","棉花糖"
 ```
 
 - 第一列为 `Key`，之后每个已安装语言一列
@@ -133,14 +153,16 @@ Stardew Valley/Mods/ListAllItem/exports/entities.csv
 
 ## 限制
 
-- 只导出显示名称（DisplayName），不导出描述、对话、事件、邮件等文本。
+- 只导出 DisplayName；不导出 Description、对话、事件、邮件、Tooltips 等文本。
+- 只覆盖标准 GameData 资源中“类型带 DisplayName 字段”的条目；仅有 Name/Title 的数据（如建筑、任务、电影标题）不导出。
+- 矿车目的地取自 `Data/Minecarts` 中每个网络的 `Destinations` 嵌套列表。
 - 多语言名称来自游戏自带的本地化资源；模组自定义语言（`LanguageCode.mod`）不在自动检测范围内。
 - 若其他模组添加了新的 `[LocalizedText]` 资源但未提供对应语言的翻译，回退英文。
 - 必须在进入存档后导出；标题界面无法解析依赖当前玩家的文本（例如农场名）。
 
 ## 验证说明
 
-本次开发完成了编译验证：
+本次开发完成了编译验证，并离线校验了新增资源的 DisplayName 标记在英文/中文资源中存在：
 
 ```text
 dotnet build ListAllItem.sln

@@ -20,6 +20,11 @@ namespace ListAllItem.Export
         public static T Load<T>(string baseAssetName, LanguageCode language)
         {
             string normalized = baseAssetName.Replace('\\', '/');
+
+            // 少数数据（如 Data/MonsterSlayerQuests）使用双反斜杠，归一化为单斜杠。
+            while (normalized.Contains("//"))
+                normalized = normalized.Replace("//", "/");
+
             string localizedAssetName = language == LanguageCode.en
                 ? normalized
                 : normalized + "." + LocalizedContentManager.LanguageCodeString(language);
