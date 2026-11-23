@@ -1,10 +1,10 @@
 {
-  "Name": "List All Items",
+  "Name": "Export All Items",
   "Author": "CuteCat233",
-  "Version": "1.1.1",
+  "Version": "1.1.2",
   "Description": "Export multilingual display names (JSON/CSV) for items, locations, NPCs, and other named game data.",
   "UniqueID": "CuteCat233.ListAllItem",
-  "EntryDll": "ListAllItem.dll",
+  "EntryDll": "ExportAllItems.dll",
   "MinimumApiVersion": "4.0.0",
   "Dependencies": [
     {

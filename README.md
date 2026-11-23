@@ -1,4 +1,6 @@
-# ListAllItem
+# Export All Items
+
+> 内部项目名和 UniqueID 仍为 `ListAllItem`；程序集/DLL 名称为 `ExportAllItems`，以保持配置与升级路径兼容。
 
 一个 Stardew Valley 1.6 / SMAPI 模组：把游戏标准数据资源中**所有带 DisplayName 的短名称条目**（物品、地点、NPC、电影院零食、增益、能力、农场动物、宠物、人体模型、矿车目的地、怪物消灭目标、被动节日）逐个列出来，并导出每个条目的**多语言显示名称（DisplayName）**。
 
@@ -27,7 +29,7 @@ dotnet build ListAllItem.sln
 
 构建成功后会：
 
-- 生成 `ListAllItem/bin/Debug/net6.0/ListAllItem.dll`
+- 生成 `ListAllItem/bin/Debug/net6.0/ExportAllItems.dll`
 - 自动部署到 `Stardew Valley/Mods/ListAllItem/`
 - 在 `bin/Debug/net6.0/` 下生成发布用 zip
 
