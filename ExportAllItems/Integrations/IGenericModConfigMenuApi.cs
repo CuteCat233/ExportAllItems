@@ -1,6 +1,6 @@
 using StardewModdingAPI;
 
-namespace ListAllItem.Integrations
+namespace ExportAllItems.Integrations
 {
     /// <summary>Generic Mod Config Menu API 中本模组使用的子集。</summary>
     public interface IGenericModConfigMenuApi

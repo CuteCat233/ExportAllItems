@@ -1,7 +1,7 @@
 using StardewValley;
 using LanguageCode = StardewValley.LocalizedContentManager.LanguageCode;
 
-namespace ListAllItem.Export
+namespace ExportAllItems.Export
 {
     /// <summary>按显式本地化资源名加载资源。</summary>
     internal static class LocalizedAssetLoader

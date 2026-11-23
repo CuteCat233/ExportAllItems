@@ -3,7 +3,7 @@ using StardewModdingAPI;
 using StardewValley.TokenizableStrings;
 using LanguageCode = StardewValley.LocalizedContentManager.LanguageCode;
 
-namespace ListAllItem.Export
+namespace ExportAllItems.Export
 {
     /// <summary>按指定语言解析游戏数据中的 <c>[LocalizedText ...]</c> 显示名称。</summary>
     internal sealed class LocalizedNameResolver

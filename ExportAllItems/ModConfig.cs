@@ -1,6 +1,6 @@
 using StardewModdingAPI;
 
-namespace ListAllItem
+namespace ExportAllItems
 {
     /// <summary>模组配置。</summary>
     public sealed class ModConfig

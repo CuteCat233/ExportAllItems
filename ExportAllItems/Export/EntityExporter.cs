@@ -21,7 +21,7 @@ using StardewValley.GameData.Tools;
 using StardewValley.GameData.Weapons;
 using LanguageCode = StardewValley.LocalizedContentManager.LanguageCode;
 
-namespace ListAllItem.Export
+namespace ExportAllItems.Export
 {
     /// <summary>收集实体并导出 JSON / CSV。</summary>
     internal sealed class EntityExporter

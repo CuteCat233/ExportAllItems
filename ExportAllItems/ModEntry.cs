@@ -1,10 +1,10 @@
 using System;
-using ListAllItem.Export;
-using ListAllItem.Integrations;
+using ExportAllItems.Export;
+using ExportAllItems.Integrations;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 
-namespace ListAllItem
+namespace ExportAllItems
 {
     /// <summary>模组入口点。</summary>
     public class ModEntry : Mod

@@ -1,6 +1,6 @@
 # Export All Items
 
-> 内部项目名和 UniqueID 仍为 `ListAllItem`；程序集/DLL 名称为 `ExportAllItems`，以保持配置与升级路径兼容。
+> 项目、解决方案、命名空间、程序集、UniqueID 与部署目录统一为 `ExportAllItems` / `Export All Items`。
 
 一个 Stardew Valley 1.6 / SMAPI 模组：把游戏标准数据资源中**所有带 DisplayName 的短名称条目**（物品、地点、NPC、电影院零食、增益、能力、农场动物、宠物、人体模型、矿车目的地、怪物消灭目标、被动节日）逐个列出来，并导出每个条目的**多语言显示名称（DisplayName）**。
 
@@ -24,13 +24,13 @@
 需要能构建 `net6.0` 目标的 .NET SDK（本机使用 .NET 10 SDK 构建通过）、Stardew Valley 1.6 和 SMAPI 4.x。项目使用 `Pathoschild.Stardew.ModBuildConfig` 自动查找游戏目录（本机为 `D:\SteamLibrary\steamapps\common\Stardew Valley`）。
 
 ```powershell
-dotnet build ListAllItem.sln
+dotnet build ExportAllItems.sln
 ```
 
 构建成功后会：
 
-- 生成 `ListAllItem/bin/Debug/net6.0/ExportAllItems.dll`
-- 自动部署到 `Stardew Valley/Mods/ListAllItem/`
+- 生成 `ExportAllItems/bin/Debug/net6.0/ExportAllItems.dll`
+- 自动部署到 `Stardew Valley/Mods/ExportAllItems/`
 - 在 `bin/Debug/net6.0/` 下生成发布用 zip
 
 ## 使用
@@ -45,8 +45,8 @@ lia_export
 3. 导出文件位于模组目录：
 
 ```text
-Stardew Valley/Mods/ListAllItem/exports/entities.json
-Stardew Valley/Mods/ListAllItem/exports/entities.csv
+Stardew Valley/Mods/ExportAllItems/exports/entities.json
+Stardew Valley/Mods/ExportAllItems/exports/entities.csv
 ```
 
 每次导出都会覆盖这两个文件。
@@ -179,7 +179,7 @@ Stardew Valley/Mods/ListAllItem/exports/entities.csv
 本次开发完成了编译验证，并离线校验了新增资源的 DisplayName 标记在英文/中文资源中存在：
 
 ```text
-dotnet build ListAllItem.sln
+dotnet build ExportAllItems.sln
 已成功生成。0 个警告，0 个错误。
 ```
 

@@ -1,6 +1,6 @@
 using LanguageCode = StardewValley.LocalizedContentManager.LanguageCode;
 
-namespace ListAllItem.Export
+namespace ExportAllItems.Export
 {
     /// <summary>尚未解析显示名称的实体。</summary>
     internal sealed class RawEntity
