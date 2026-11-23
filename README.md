@@ -17,7 +17,7 @@
 
 ## 构建
 
-需要 .NET 6 SDK、Stardew Valley 1.6 和 SMAPI 4.x。项目使用 `Pathoschild.Stardew.ModBuildConfig` 自动查找游戏目录（本机为 `D:\SteamLibrary\steamapps\common\Stardew Valley`）。
+需要能构建 `net6.0` 目标的 .NET SDK（本机使用 .NET 10 SDK 构建通过）、Stardew Valley 1.6 和 SMAPI 4.x。项目使用 `Pathoschild.Stardew.ModBuildConfig` 自动查找游戏目录（本机为 `D:\SteamLibrary\steamapps\common\Stardew Valley`）。
 
 ```powershell
 dotnet build ListAllItem.sln
