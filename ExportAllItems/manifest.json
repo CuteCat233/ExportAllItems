@@ -6,6 +6,9 @@
   "UniqueID": "CuteCat233.ExportAllItems",
   "EntryDll": "ExportAllItems.dll",
   "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [
+    "Nexus:55926"
+  ],
   "Dependencies": [
     {
       "UniqueID": "spacechase0.GenericModConfigMenu",
