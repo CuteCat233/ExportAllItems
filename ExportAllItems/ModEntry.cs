@@ -203,7 +203,8 @@ namespace ExportAllItems
 
                 if (result.Failures.Count == 0)
                 {
-                    this.ShowHudMessage("hud.export-success", 0);
+                    // 无图标样式，避免出现空的图标框。
+                    this.ShowHudMessage("hud.export-success", 0, noIcon: true);
                 }
                 else
                 {
@@ -222,12 +223,16 @@ namespace ExportAllItems
         }
 
         /// <summary>显示游戏自带的 HUD 提醒。</summary>
-        private void ShowHudMessage(string translationKey, int messageType)
+        private void ShowHudMessage(string translationKey, int messageType, bool noIcon = false)
         {
             try
             {
                 string message = this.Helper.Translation.Get(translationKey).ToString();
-                Game1.addHUDMessage(new HUDMessage(message, messageType));
+                HUDMessage hudMessage = noIcon
+                    ? HUDMessage.ForCornerTextbox(message)
+                    : new HUDMessage(message, messageType);
+
+                Game1.addHUDMessage(hudMessage);
             }
             catch (Exception ex)
             {
