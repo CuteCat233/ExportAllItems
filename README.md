@@ -2,7 +2,13 @@
 
 一个 Stardew Valley 1.6 / SMAPI 模组：把游戏标准数据中带 `DisplayName` 的实体导出为 JSON / CSV，并支持多语言名称、按类型筛选和分文件夹输出。
 
-当前版本：**1.5.0**
+当前版本：**1.5.2**
+
+## 下载
+
+- **Nexus Mods（N网）**：<https://www.nexusmods.com/stardewvalley/mods/55926>
+  - 模组 ID：`55926`
+- 也可以从源码构建，见下方“构建与安装”。
 
 ## 功能
 
