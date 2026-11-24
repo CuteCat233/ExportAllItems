@@ -19,5 +19,8 @@
   "config.types.mannequins": "Próbababák",
   "config.types.minecart-destinations": "Csillék úti céljai",
   "config.types.monster-slayer-quests": "Szörnyvadász célok",
-  "config.types.passive-festivals": "Passzív fesztiválok"
+  "config.types.passive-festivals": "Passzív fesztiválok",
+  "hud.export-success": "Az exportálás sikeres.",
+  "hud.export-failure": "Az exportálás sikertelen. A részletekért nézd meg a konzolablakot.",
+  "hud.export-partial-failure": "Néhány exportálás sikertelen. A részletekért nézd meg a konzolablakot."
 }

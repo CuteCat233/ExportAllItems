@@ -19,5 +19,8 @@
   "config.types.mannequins": "Mannequins",
   "config.types.minecart-destinations": "Destinations du wagonnet",
   "config.types.monster-slayer-quests": "Objectifs de chasse aux monstres",
-  "config.types.passive-festivals": "Festivals passifs"
+  "config.types.passive-festivals": "Festivals passifs",
+  "hud.export-success": "Exportation réussie.",
+  "hud.export-failure": "L'exportation a échoué. Consultez la fenêtre de console pour plus de détails.",
+  "hud.export-partial-failure": "Certaines exportations ont échoué. Consultez la fenêtre de console pour plus de détails."
 }

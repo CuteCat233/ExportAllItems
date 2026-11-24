@@ -19,5 +19,8 @@
   "config.types.mannequins": "人体模型",
   "config.types.minecart-destinations": "矿车目的地",
   "config.types.monster-slayer-quests": "怪物消灭目标",
-  "config.types.passive-festivals": "被动节日"
+  "config.types.passive-festivals": "被动节日",
+  "hud.export-success": "导出成功",
+  "hud.export-failure": "导出失败，详细信息请查看命令行窗口",
+  "hud.export-partial-failure": "部分导出失败，详细信息查看请命令行窗口"
 }

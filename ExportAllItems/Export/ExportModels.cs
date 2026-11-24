@@ -76,9 +76,20 @@ namespace ExportAllItems.Export
     /// <param name="Column">导出时使用的语言代码，例如 <c>zh-CN</c>。</param>
     internal sealed record ExportLanguage(LanguageCode Code, string Column);
 
+    /// <summary>一次按类型导出失败的信息。</summary>
+    /// <param name="Type">失败的导出类型。</param>
+    /// <param name="Exception">导致失败的异常。</param>
+    internal sealed record ExportFailure(string Type, Exception Exception);
+
     /// <summary>一次导出的结果摘要。</summary>
     /// <param name="EntityCount">导出的实体数量。</param>
     /// <param name="Languages">导出的语言代码。</param>
-    /// <param name="OutputPaths">写出的 JSON/CSV 文件路径。</param>
-    internal sealed record ExportResult(int EntityCount, IReadOnlyList<string> Languages, IReadOnlyList<string> OutputPaths);
+    /// <param name="OutputPaths">成功写出的 JSON/CSV 文件路径。</param>
+    /// <param name="Failures">按类型导出时失败的类别。</param>
+    internal sealed record ExportResult(
+        int EntityCount,
+        IReadOnlyList<string> Languages,
+        IReadOnlyList<string> OutputPaths,
+        IReadOnlyList<ExportFailure> Failures
+    );
 }

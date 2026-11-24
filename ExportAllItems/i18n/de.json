@@ -19,5 +19,8 @@
   "config.types.mannequins": "Schaufensterpuppen",
   "config.types.minecart-destinations": "Minenwagen-Ziele",
   "config.types.monster-slayer-quests": "Monsterjagd-Ziele",
-  "config.types.passive-festivals": "Passive Feste"
+  "config.types.passive-festivals": "Passive Feste",
+  "hud.export-success": "Export erfolgreich.",
+  "hud.export-failure": "Export fehlgeschlagen. Details findest du im Konsolenfenster.",
+  "hud.export-partial-failure": "Einige Exporte sind fehlgeschlagen. Details findest du im Konsolenfenster."
 }

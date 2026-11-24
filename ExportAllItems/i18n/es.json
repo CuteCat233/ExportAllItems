@@ -19,5 +19,8 @@
   "config.types.mannequins": "Maniquíes",
   "config.types.minecart-destinations": "Destinos del carrito",
   "config.types.monster-slayer-quests": "Objetivos de caza de monstruos",
-  "config.types.passive-festivals": "Festivales pasivos"
+  "config.types.passive-festivals": "Festivales pasivos",
+  "hud.export-success": "Exportación completada.",
+  "hud.export-failure": "La exportación falló. Consulta la ventana de la consola para más detalles.",
+  "hud.export-partial-failure": "Algunas exportaciones fallaron. Consulta la ventana de la consola para más detalles."
 }

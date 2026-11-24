@@ -19,5 +19,8 @@
   "config.types.mannequins": "マネキン",
   "config.types.minecart-destinations": "トロッコの行き先",
   "config.types.monster-slayer-quests": "モンスター討伐目標",
-  "config.types.passive-festivals": "パッシブフェスティバル"
+  "config.types.passive-festivals": "パッシブフェスティバル",
+  "hud.export-success": "エクスポートに成功しました。",
+  "hud.export-failure": "エクスポートに失敗しました。詳細はコンソールウィンドウを確認してください。",
+  "hud.export-partial-failure": "一部のエクスポートに失敗しました。詳細はコンソールウィンドウを確認してください。"
 }

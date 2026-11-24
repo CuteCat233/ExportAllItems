@@ -19,5 +19,8 @@
   "config.types.mannequins": "Mankenler",
   "config.types.minecart-destinations": "Maden arabası hedefleri",
   "config.types.monster-slayer-quests": "Canavar avı görevleri",
-  "config.types.passive-festivals": "Pasif festivaller"
+  "config.types.passive-festivals": "Pasif festivaller",
+  "hud.export-success": "Dışa aktarma başarılı.",
+  "hud.export-failure": "Dışa aktarma başarısız. Ayrıntılar için konsol penceresine bakın.",
+  "hud.export-partial-failure": "Bazı dışa aktarmalar başarısız. Ayrıntılar için konsol penceresine bakın."
 }

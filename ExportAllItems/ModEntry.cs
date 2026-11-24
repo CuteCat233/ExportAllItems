@@ -3,6 +3,7 @@ using ExportAllItems.Export;
 using ExportAllItems.Integrations;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewValley;
 
 namespace ExportAllItems
 {
@@ -177,6 +178,7 @@ namespace ExportAllItems
                 if (selectedTypes.Count == 0)
                 {
                     this.Monitor.Log("No export types are selected. Enable at least one type in the mod settings.", LogLevel.Warn);
+                    this.ShowHudMessage("hud.export-failure", HUDMessage.error_type);
                     return;
                 }
 
@@ -198,10 +200,38 @@ namespace ExportAllItems
                 this.Monitor.Log($"Wrote {result.OutputPaths.Count} file(s):", LogLevel.Info);
                 foreach (string outputPath in result.OutputPaths)
                     this.Monitor.Log(outputPath, LogLevel.Info);
+
+                if (result.Failures.Count == 0)
+                {
+                    this.ShowHudMessage("hud.export-success", 0);
+                }
+                else
+                {
+                    this.Monitor.Log($"{result.Failures.Count} type(s) failed to export.", LogLevel.Warn);
+                    this.ShowHudMessage(
+                        result.OutputPaths.Count > 0 ? "hud.export-partial-failure" : "hud.export-failure",
+                        HUDMessage.error_type
+                    );
+                }
             }
             catch (Exception ex)
             {
                 this.Monitor.Log($"Export failed: {ex}", LogLevel.Error);
+                this.ShowHudMessage("hud.export-failure", HUDMessage.error_type);
+            }
+        }
+
+        /// <summary>显示游戏自带的 HUD 提醒。</summary>
+        private void ShowHudMessage(string translationKey, int messageType)
+        {
+            try
+            {
+                string message = this.Helper.Translation.Get(translationKey).ToString();
+                Game1.addHUDMessage(new HUDMessage(message, messageType));
+            }
+            catch (Exception ex)
+            {
+                this.Monitor.Log($"Could not show HUD message: {ex.Message}", LogLevel.Trace);
             }
         }
 

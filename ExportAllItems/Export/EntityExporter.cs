@@ -128,6 +128,7 @@ namespace ExportAllItems.Export
 
             string[] languageColumns = languages.Select(language => language.Column).ToArray();
             List<string> outputPaths = new();
+            List<ExportFailure> failures = new();
 
             if (this.SplitByType)
             {
@@ -136,7 +137,15 @@ namespace ExportAllItems.Export
                     .OrderBy(group => group.Key, StringComparer.Ordinal))
                 {
                     string typeDirectory = Path.Combine(outputDirectory, GetTypeFolderName(group.Key));
-                    this.WriteExportFiles(typeDirectory, languages, group.ToList(), outputPaths);
+                    try
+                    {
+                        this.WriteExportFiles(typeDirectory, languages, group.ToList(), outputPaths);
+                    }
+                    catch (Exception ex)
+                    {
+                        failures.Add(new ExportFailure(group.Key, ex));
+                        this.Monitor.Log($"Failed to export type '{group.Key}': {ex}", LogLevel.Error);
+                    }
                 }
             }
             else
@@ -144,7 +153,7 @@ namespace ExportAllItems.Export
                 this.WriteExportFiles(outputDirectory, languages, records, outputPaths);
             }
 
-            return new ExportResult(records.Count, languageColumns, outputPaths);
+            return new ExportResult(records.Count, languageColumns, outputPaths, failures);
         }
 
         /// <summary>把一组记录写入指定目录的 entities.json / entities.csv。</summary>
@@ -172,9 +181,9 @@ namespace ExportAllItems.Export
 
             string json = JsonSerializer.Serialize(document, JsonOptions);
             File.WriteAllText(jsonPath, json, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
-            File.WriteAllText(csvPath, BuildCsv(languages, records), new UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
-
             outputPaths.Add(jsonPath);
+
+            File.WriteAllText(csvPath, BuildCsv(languages, records), new UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
             outputPaths.Add(csvPath);
         }
 

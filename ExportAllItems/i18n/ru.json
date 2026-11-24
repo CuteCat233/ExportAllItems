@@ -19,5 +19,8 @@
   "config.types.mannequins": "Манекены",
   "config.types.minecart-destinations": "Пункты назначения вагонетки",
   "config.types.monster-slayer-quests": "Цели охоты на монстров",
-  "config.types.passive-festivals": "Пассивные фестивали"
+  "config.types.passive-festivals": "Пассивные фестивали",
+  "hud.export-success": "Экспорт выполнен.",
+  "hud.export-failure": "Не удалось выполнить экспорт. Подробности см. в окне консоли.",
+  "hud.export-partial-failure": "Не удалось выполнить часть экспорта. Подробности см. в окне консоли."
 }

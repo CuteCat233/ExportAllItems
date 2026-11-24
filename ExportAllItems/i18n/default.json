@@ -19,5 +19,8 @@
   "config.types.mannequins": "Mannequins",
   "config.types.minecart-destinations": "Minecart destinations",
   "config.types.monster-slayer-quests": "Monster slayer quests",
-  "config.types.passive-festivals": "Passive festivals"
+  "config.types.passive-festivals": "Passive festivals",
+  "hud.export-success": "Export successful.",
+  "hud.export-failure": "Export failed. See the console window for details.",
+  "hud.export-partial-failure": "Some exports failed. See the console window for details."
 }
