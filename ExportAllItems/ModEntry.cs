@@ -148,7 +148,8 @@ namespace ExportAllItems
         /// <param name="e">对象 e 表示事件数据。</param>
         private void OnButtonPressed(object? sender, ButtonPressedEventArgs e)
         {
-            if (!Context.IsWorldReady)
+            // 只在玩家可自由行动且没有菜单打开时响应，避免在 GMCM 改键或暂停菜单中误触。
+            if (!Context.IsWorldReady || !Context.IsPlayerFree || Game1.activeClickableMenu is not null)
                 return;
 
             if (this.ExportKey != SButton.None && e.Button == this.ExportKey)

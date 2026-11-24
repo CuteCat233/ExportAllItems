@@ -40,6 +40,8 @@ Stardew Valley/Mods/ExportAllItems/
 lia_export
 ```
 
+快捷键只在玩家可自由行动且没有菜单打开时生效；在暂停菜单、GMCM 改键界面等菜单中按快捷键不会触发导出。
+
 3. 默认写入合并文件：
 
 ```text
