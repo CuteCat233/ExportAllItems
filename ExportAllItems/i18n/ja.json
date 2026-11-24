@@ -3,5 +3,19 @@
   "config.export-key.name": "エクスポートキー",
   "config.export-key.tooltip": "ゲーム中にこのキーを押すとエクスポートします。「なし」に設定するとショートカットを無効にします。",
   "config.export-all-languages.name": "すべての言語をエクスポート",
-  "config.export-all-languages.tooltip": "無効にすると、英語と現在のゲーム言語のみをエクスポートします。"
+  "config.export-all-languages.tooltip": "無効にすると、英語と現在のゲーム言語のみをエクスポートします。",
+  "config.section-types": "エクスポートする種類",
+  "config.types.tooltip": "この種類をエクスポートに含めます。",
+  "config.types.items": "アイテム",
+  "config.types.locations": "場所",
+  "config.types.npcs": "NPC",
+  "config.types.concessions": "映画館の軽食",
+  "config.types.buffs": "バフ",
+  "config.types.powers": "パワー",
+  "config.types.farm-animals": "家畜",
+  "config.types.pets": "ペット",
+  "config.types.mannequins": "マネキン",
+  "config.types.minecart-destinations": "トロッコの行き先",
+  "config.types.monster-slayer-quests": "モンスター討伐目標",
+  "config.types.passive-festivals": "パッシブフェスティバル"
 }

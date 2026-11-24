@@ -3,5 +3,19 @@
   "config.export-key.name": "Exportálási billentyű",
   "config.export-key.tooltip": "Játék közben nyomd meg ezt a billentyűt az exportáláshoz. Állítsd „Nincs” értékre a gyorsbillentyű kikapcsolásához.",
   "config.export-all-languages.name": "Minden nyelv exportálása",
-  "config.export-all-languages.tooltip": "Ha ki van kapcsolva, csak az angol és az aktuális játéknyelv kerül exportálásra."
+  "config.export-all-languages.tooltip": "Ha ki van kapcsolva, csak az angol és az aktuális játéknyelv kerül exportálásra.",
+  "config.section-types": "Exportálandó típusok",
+  "config.types.tooltip": "Típus belefoglalása az exportba.",
+  "config.types.items": "Tárgyak",
+  "config.types.locations": "Helyszínek",
+  "config.types.npcs": "NPC-k",
+  "config.types.concessions": "Mozi finomságok",
+  "config.types.buffs": "Hatások",
+  "config.types.powers": "Képességek",
+  "config.types.farm-animals": "Haszonállatok",
+  "config.types.pets": "Háziállatok",
+  "config.types.mannequins": "Próbababák",
+  "config.types.minecart-destinations": "Csillék úti céljai",
+  "config.types.monster-slayer-quests": "Szörnyvadász célok",
+  "config.types.passive-festivals": "Passzív fesztiválok"
 }

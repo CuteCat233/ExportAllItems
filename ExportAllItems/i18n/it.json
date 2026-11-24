@@ -3,5 +3,19 @@
   "config.export-key.name": "Tasto di esportazione",
   "config.export-key.tooltip": "Premi questo tasto durante il gioco per esportare. Impostalo su Nessuno per disattivare la scorciatoia.",
   "config.export-all-languages.name": "Esporta tutte le lingue",
-  "config.export-all-languages.tooltip": "Se disattivato, vengono esportati solo l'inglese e la lingua corrente del gioco."
+  "config.export-all-languages.tooltip": "Se disattivato, vengono esportati solo l'inglese e la lingua corrente del gioco.",
+  "config.section-types": "Tipi di esportazione",
+  "config.types.tooltip": "Includi questo tipo nell'esportazione.",
+  "config.types.items": "Oggetti",
+  "config.types.locations": "Luoghi",
+  "config.types.npcs": "PNG",
+  "config.types.concessions": "Snack del cinema",
+  "config.types.buffs": "Potenziamenti",
+  "config.types.powers": "Poteri",
+  "config.types.farm-animals": "Animali da fattoria",
+  "config.types.pets": "Animali domestici",
+  "config.types.mannequins": "Manichini",
+  "config.types.minecart-destinations": "Destinazioni del carrello",
+  "config.types.monster-slayer-quests": "Obiettivi di caccia ai mostri",
+  "config.types.passive-festivals": "Festival passivi"
 }

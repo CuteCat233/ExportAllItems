@@ -1,7 +1,7 @@
 {
   "Name": "Export All Items",
   "Author": "CuteCat233",
-  "Version": "1.2.0",
+  "Version": "1.3.0",
   "Description": "Export multilingual display names (JSON/CSV) for items, locations, NPCs, and other named game data.",
   "UniqueID": "CuteCat233.ExportAllItems",
   "EntryDll": "ExportAllItems.dll",

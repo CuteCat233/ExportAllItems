@@ -3,5 +3,19 @@
   "config.export-key.name": "Клавиша экспорта",
   "config.export-key.tooltip": "Нажмите эту клавишу в игре, чтобы экспортировать. Установите «Нет», чтобы отключить горячую клавишу.",
   "config.export-all-languages.name": "Экспортировать все языки",
-  "config.export-all-languages.tooltip": "Если параметр отключён, экспортируются только английский и текущий язык игры."
+  "config.export-all-languages.tooltip": "Если параметр отключён, экспортируются только английский и текущий язык игры.",
+  "config.section-types": "Типы экспорта",
+  "config.types.tooltip": "Включить этот тип в экспорт.",
+  "config.types.items": "Предметы",
+  "config.types.locations": "Локации",
+  "config.types.npcs": "NPC",
+  "config.types.concessions": "Киноугощения",
+  "config.types.buffs": "Эффекты",
+  "config.types.powers": "Силы",
+  "config.types.farm-animals": "Сельскохозяйственные животные",
+  "config.types.pets": "Питомцы",
+  "config.types.mannequins": "Манекены",
+  "config.types.minecart-destinations": "Пункты назначения вагонетки",
+  "config.types.monster-slayer-quests": "Цели охоты на монстров",
+  "config.types.passive-festivals": "Пассивные фестивали"
 }

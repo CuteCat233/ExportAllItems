@@ -3,5 +3,19 @@
   "config.export-key.name": "Tecla de exportación",
   "config.export-key.tooltip": "Pulsa esta tecla en el juego para exportar. Configúrala en Ninguna para desactivar el atajo.",
   "config.export-all-languages.name": "Exportar todos los idiomas",
-  "config.export-all-languages.tooltip": "Si se desactiva, solo se exportan el inglés y el idioma actual del juego."
+  "config.export-all-languages.tooltip": "Si se desactiva, solo se exportan el inglés y el idioma actual del juego.",
+  "config.section-types": "Tipos de exportación",
+  "config.types.tooltip": "Incluir este tipo en la exportación.",
+  "config.types.items": "Objetos",
+  "config.types.locations": "Ubicaciones",
+  "config.types.npcs": "PNJ",
+  "config.types.concessions": "Aperitivos de cine",
+  "config.types.buffs": "Efectos",
+  "config.types.powers": "Poderes",
+  "config.types.farm-animals": "Animales de granja",
+  "config.types.pets": "Mascotas",
+  "config.types.mannequins": "Maniquíes",
+  "config.types.minecart-destinations": "Destinos del carrito",
+  "config.types.monster-slayer-quests": "Objetivos de caza de monstruos",
+  "config.types.passive-festivals": "Festivales pasivos"
 }

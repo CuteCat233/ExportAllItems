@@ -3,5 +3,19 @@
   "config.export-key.name": "Export key",
   "config.export-key.tooltip": "Press this key in-game to export. Set to None to disable the shortcut.",
   "config.export-all-languages.name": "Export all languages",
-  "config.export-all-languages.tooltip": "When disabled, only English and the current game language are exported."
+  "config.export-all-languages.tooltip": "When disabled, only English and the current game language are exported.",
+  "config.section-types": "Export types",
+  "config.types.tooltip": "Include this type in the export.",
+  "config.types.items": "Items",
+  "config.types.locations": "Locations",
+  "config.types.npcs": "NPCs",
+  "config.types.concessions": "Concessions",
+  "config.types.buffs": "Buffs",
+  "config.types.powers": "Powers",
+  "config.types.farm-animals": "Farm animals",
+  "config.types.pets": "Pets",
+  "config.types.mannequins": "Mannequins",
+  "config.types.minecart-destinations": "Minecart destinations",
+  "config.types.monster-slayer-quests": "Monster slayer quests",
+  "config.types.passive-festivals": "Passive festivals"
 }

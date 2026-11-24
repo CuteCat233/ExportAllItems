@@ -3,5 +3,19 @@
   "config.export-key.name": "Dışa aktarma tuşu",
   "config.export-key.tooltip": "Dışa aktarmak için oyunda bu tuşa basın. Kısayolu devre dışı bırakmak için Yok olarak ayarlayın.",
   "config.export-all-languages.name": "Tüm dilleri dışa aktar",
-  "config.export-all-languages.tooltip": "Devre dışı bırakıldığında yalnızca İngilizce ve mevcut oyun dili dışa aktarılır."
+  "config.export-all-languages.tooltip": "Devre dışı bırakıldığında yalnızca İngilizce ve mevcut oyun dili dışa aktarılır.",
+  "config.section-types": "Dışa aktarma türleri",
+  "config.types.tooltip": "Bu türü dışa aktarmaya dahil et.",
+  "config.types.items": "Eşyalar",
+  "config.types.locations": "Konumlar",
+  "config.types.npcs": "NPC'ler",
+  "config.types.concessions": "Sinema atıştırmalıkları",
+  "config.types.buffs": "Güçlendirmeler",
+  "config.types.powers": "Güçler",
+  "config.types.farm-animals": "Çiftlik hayvanları",
+  "config.types.pets": "Evcil hayvanlar",
+  "config.types.mannequins": "Mankenler",
+  "config.types.minecart-destinations": "Maden arabası hedefleri",
+  "config.types.monster-slayer-quests": "Canavar avı görevleri",
+  "config.types.passive-festivals": "Pasif festivaller"
 }

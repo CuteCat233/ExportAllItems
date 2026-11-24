@@ -35,7 +35,7 @@ namespace ExportAllItems
             helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
             helper.ConsoleCommands.Add(
                 "lia_export",
-                "Export multilingual display names (JSON/CSV) for items, locations, and NPCs.",
+                "Export multilingual display names (JSON/CSV) for the selected game data types.",
                 this.OnExportCommand
             );
         }
@@ -107,6 +107,32 @@ namespace ExportAllItems
                 () => Translate("config.export-all-languages.name"),
                 () => Translate("config.export-all-languages.tooltip")
             );
+
+            configMenu.AddSectionTitle(this.ModManifest, () => Translate("config.section-types"));
+
+            void AddTypeOption(string translationKey, Func<bool> getValue, Action<bool> setValue)
+            {
+                configMenu.AddBoolOption(
+                    this.ModManifest,
+                    getValue,
+                    setValue,
+                    () => Translate(translationKey),
+                    () => Translate("config.types.tooltip")
+                );
+            }
+
+            AddTypeOption("config.types.items", () => this.Config.ExportItems, value => this.Config.ExportItems = value);
+            AddTypeOption("config.types.locations", () => this.Config.ExportLocations, value => this.Config.ExportLocations = value);
+            AddTypeOption("config.types.npcs", () => this.Config.ExportNpcs, value => this.Config.ExportNpcs = value);
+            AddTypeOption("config.types.concessions", () => this.Config.ExportConcessions, value => this.Config.ExportConcessions = value);
+            AddTypeOption("config.types.buffs", () => this.Config.ExportBuffs, value => this.Config.ExportBuffs = value);
+            AddTypeOption("config.types.powers", () => this.Config.ExportPowers, value => this.Config.ExportPowers = value);
+            AddTypeOption("config.types.farm-animals", () => this.Config.ExportFarmAnimals, value => this.Config.ExportFarmAnimals = value);
+            AddTypeOption("config.types.pets", () => this.Config.ExportPets, value => this.Config.ExportPets = value);
+            AddTypeOption("config.types.mannequins", () => this.Config.ExportMannequins, value => this.Config.ExportMannequins = value);
+            AddTypeOption("config.types.minecart-destinations", () => this.Config.ExportMinecartDestinations, value => this.Config.ExportMinecartDestinations = value);
+            AddTypeOption("config.types.monster-slayer-quests", () => this.Config.ExportMonsterSlayerQuests, value => this.Config.ExportMonsterSlayerQuests = value);
+            AddTypeOption("config.types.passive-festivals", () => this.Config.ExportPassiveFestivals, value => this.Config.ExportPassiveFestivals = value);
         }
 
         /// <summary>在玩家按下键盘、控制器或鼠标上的按钮后引发。</summary>
@@ -140,9 +166,16 @@ namespace ExportAllItems
         {
             try
             {
+                HashSet<string> selectedTypes = this.GetSelectedTypes();
+                if (selectedTypes.Count == 0)
+                {
+                    this.Monitor.Log("No export types are selected. Enable at least one type in the mod settings.", LogLevel.Warn);
+                    return;
+                }
+
                 this.Monitor.Log("Collecting and exporting data...", LogLevel.Info);
 
-                EntityExporter exporter = new(this.Helper, this.Monitor, this.Config.ExportAllLanguages);
+                EntityExporter exporter = new(this.Helper, this.Monitor, this.Config.ExportAllLanguages, selectedTypes);
                 ExportResult result = exporter.Export();
 
                 this.Monitor.Log(
@@ -156,6 +189,39 @@ namespace ExportAllItems
             {
                 this.Monitor.Log($"Export failed: {ex}", LogLevel.Error);
             }
+        }
+
+        /// <summary>根据配置收集选中的导出类型。</summary>
+        private HashSet<string> GetSelectedTypes()
+        {
+            HashSet<string> types = new(StringComparer.Ordinal);
+
+            if (this.Config.ExportItems)
+                types.Add(ExportTypes.Item);
+            if (this.Config.ExportLocations)
+                types.Add(ExportTypes.Location);
+            if (this.Config.ExportNpcs)
+                types.Add(ExportTypes.Npc);
+            if (this.Config.ExportConcessions)
+                types.Add(ExportTypes.Concession);
+            if (this.Config.ExportBuffs)
+                types.Add(ExportTypes.Buff);
+            if (this.Config.ExportPowers)
+                types.Add(ExportTypes.Power);
+            if (this.Config.ExportFarmAnimals)
+                types.Add(ExportTypes.FarmAnimal);
+            if (this.Config.ExportPets)
+                types.Add(ExportTypes.Pet);
+            if (this.Config.ExportMannequins)
+                types.Add(ExportTypes.Mannequin);
+            if (this.Config.ExportMinecartDestinations)
+                types.Add(ExportTypes.MinecartDestination);
+            if (this.Config.ExportMonsterSlayerQuests)
+                types.Add(ExportTypes.MonsterSlayerQuest);
+            if (this.Config.ExportPassiveFestivals)
+                types.Add(ExportTypes.PassiveFestival);
+
+            return types;
         }
     }
 }

@@ -53,6 +53,9 @@ namespace ExportAllItems.Export
         /// <summary>是否导出所有已安装语言；否则只导出英文与当前游戏语言。</summary>
         private readonly bool ExportAllLanguages;
 
+        /// <summary>选中的导出类型。</summary>
+        private readonly ISet<string> SelectedTypes;
+
 
         /*********
         ** 公共方法
@@ -61,11 +64,13 @@ namespace ExportAllItems.Export
         /// <param name="helper">SMAPI 助手。</param>
         /// <param name="monitor">日志接口。</param>
         /// <param name="exportAllLanguages">是否导出所有已安装语言。</param>
-        public EntityExporter(IModHelper helper, IMonitor monitor, bool exportAllLanguages)
+        /// <param name="selectedTypes">要导出的类型集合。</param>
+        public EntityExporter(IModHelper helper, IMonitor monitor, bool exportAllLanguages, ISet<string> selectedTypes)
         {
             this.Helper = helper;
             this.Monitor = monitor;
             this.ExportAllLanguages = exportAllLanguages;
+            this.SelectedTypes = selectedTypes;
         }
 
         /// <summary>收集实体、解析多语言名称并写入导出文件。</summary>
@@ -73,7 +78,9 @@ namespace ExportAllItems.Export
         public ExportResult Export()
         {
             List<ExportLanguage> languages = GetLanguages(this.ExportAllLanguages, this.Monitor);
-            List<RawEntity> rawEntities = this.CollectEntities();
+            List<RawEntity> rawEntities = this.CollectEntities()
+                .Where(entity => this.SelectedTypes.Contains(entity.Type))
+                .ToList();
 
             Dictionary<LanguageCode, LocalizedNameResolver> resolvers = new();
             foreach (ExportLanguage language in languages)

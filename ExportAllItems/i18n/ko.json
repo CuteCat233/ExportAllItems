@@ -3,5 +3,19 @@
   "config.export-key.name": "내보내기 키",
   "config.export-key.tooltip": "게임 중 이 키를 누르면 내보냅니다. '없음'으로 설정하면 단축키를 비활성화합니다.",
   "config.export-all-languages.name": "모든 언어 내보내기",
-  "config.export-all-languages.tooltip": "비활성화하면 영어와 현재 게임 언어만 내보냅니다."
+  "config.export-all-languages.tooltip": "비활성화하면 영어와 현재 게임 언어만 내보냅니다.",
+  "config.section-types": "내보낼 유형",
+  "config.types.tooltip": "이 유형을 내보내기에 포함합니다.",
+  "config.types.items": "아이템",
+  "config.types.locations": "장소",
+  "config.types.npcs": "NPC",
+  "config.types.concessions": "영화관 간식",
+  "config.types.buffs": "버프",
+  "config.types.powers": "능력",
+  "config.types.farm-animals": "농장 동물",
+  "config.types.pets": "반려동물",
+  "config.types.mannequins": "마네킹",
+  "config.types.minecart-destinations": "광산 수레 목적지",
+  "config.types.monster-slayer-quests": "몬스터 퇴치 목표",
+  "config.types.passive-festivals": "패시브 축제"
 }
