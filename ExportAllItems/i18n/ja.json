@@ -4,6 +4,8 @@
   "config.export-key.tooltip": "ゲーム中にこのキーを押すとエクスポートします。「なし」に設定するとショートカットを無効にします。",
   "config.export-all-languages.name": "すべての言語をエクスポート",
   "config.export-all-languages.tooltip": "無効にすると、英語と現在のゲーム言語のみをエクスポートします。",
+  "config.split-by-type.name": "種類ごとにファイルを分割",
+  "config.split-by-type.tooltip": "エクスポートする各種類を、結合ファイルではなく個別のサブフォルダーに書き出します。",
   "config.section-types": "エクスポートする種類",
   "config.types.tooltip": "この種類をエクスポートに含めます。",
   "config.types.items": "アイテム",

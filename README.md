@@ -14,7 +14,7 @@
   - NPC：`Data/Characters` 中的角色
   - 其他 DisplayName 数据：电影院零食 `CONCESSION:`、增益 `BUFF:`、能力 `POWER:`、农场动物 `FARMANIMAL:`、宠物 `PET:`、人体模型 `MANNEQUIN:`、矿车目的地 `MINECART:`、怪物消灭目标 `SLAYERQUEST:`、被动节日 `PASSIVEFESTIVAL:`
 - 自动检测游戏已安装的语言（英文、中文、日文、德文等），导出所有语言的 DisplayName。
-- 可选支持 Generic Mod Config Menu（GMCM），在游戏内修改导出快捷键、语言范围，以及按类型选择要导出的内容；GMCM 设置项已接入 i18n，包含英文及游戏随附的 11 种本地化语言。
+- 可选支持 Generic Mod Config Menu（GMCM），在游戏内修改导出快捷键、语言范围、按类型选择要导出的内容，以及按类型拆分输出；GMCM 设置项已接入 i18n，包含英文及游戏随附的 11 种本地化语言。
 - 同时导出：
   - **JSON**：按实体组织，包含 `displayNames` 多语言映射
   - **CSV**：`Key,语言1,语言2,...`，UTF-8 with BOM，方便 Excel 打开
@@ -59,6 +59,7 @@ Stardew Valley/Mods/ExportAllItems/exports/entities.csv
 {
   "ExportKey": "F8",
   "ExportAllLanguages": true,
+  "SplitByType": false,
   "ExportItems": true,
   "ExportLocations": true,
   "ExportNpcs": true,
@@ -76,6 +77,7 @@ Stardew Valley/Mods/ExportAllItems/exports/entities.csv
 
 - `ExportKey`：触发导出的按键，默认为 `F8`；设为 `None` 可禁用快捷键（控制台指令仍然可用）。
 - `ExportAllLanguages`：默认为 `true`，导出所有已安装语言；设为 `false` 时只导出英文和当前游戏语言。
+- `SplitByType`：默认为 `false`，写入根目录的 `entities.json` / `entities.csv`；设为 `true` 时按类型拆分到 `exports/<类型>/` 子文件夹。
 - `ExportItems` / `ExportLocations` / `ExportNpcs` / `ExportConcessions` / `ExportBuffs` / `ExportPowers` / `ExportFarmAnimals` / `ExportPets` / `ExportMannequins` / `ExportMinecartDestinations` / `ExportMonsterSlayerQuests` / `ExportPassiveFestivals`：各导出类型开关，默认全部为 `true`。
 - 至少需要选择一个类型；全部取消时导出会中止并在控制台提示。
 
@@ -83,7 +85,7 @@ Stardew Valley/Mods/ExportAllItems/exports/entities.csv
 
 [Generic Mod Config Menu](https://www.nexusmods.com/stardewvalley/mods/5098) 是**可选依赖**：
 
-- 安装后，可以在游戏内修改 `ExportKey`、`ExportAllLanguages`，以及 12 个导出类型复选框。
+- 安装后，可以在游戏内修改 `ExportKey`、`ExportAllLanguages`、`SplitByType`，以及 12 个导出类型复选框。
 - GMCM 的选项名称和提示会跟随游戏语言，翻译文件位于 `i18n/`：默认英文，以及 `de`、`es`、`fr`、`hu`、`it`、`ja`、`ko`、`pt`、`ru`、`tr`、`zh`。
 - 未安装、未加载或 GMCM API 不可用时，模组仍会正常加载和导出，设置通过 `config.json` 修改。
 - GMCM 注册失败只会记录一条警告，不影响导出功能。
@@ -172,6 +174,40 @@ Stardew Valley/Mods/ExportAllItems/exports/entities.csv
 - 第一列为 `Key`，之后每个已安装语言一列
 - 所有字段都按 CSV 规则加引号并转义
 - 文件带 UTF-8 BOM，便于 Excel 正确识别中文
+
+### 按类型拆分输出
+
+勾选 GMCM 的 **Split files by type**（或设置 `SplitByType: true`）后，不再写入根目录的合并文件，而是每种类型一个子文件夹：
+
+```text
+exports/item/entities.json
+exports/item/entities.csv
+exports/locations/entities.json
+exports/locations/entities.csv
+exports/npcs/entities.json
+...
+```
+
+目录名映射：
+
+| 类型 | 目录 |
+|---|---|
+| Item | `item` |
+| Location | `locations` |
+| NPC | `npcs` |
+| Concession | `concessions` |
+| Buff | `buffs` |
+| Power | `powers` |
+| FarmAnimal | `farm-animals` |
+| Pet | `pets` |
+| Mannequin | `mannequins` |
+| MinecartDestination | `minecart-destinations` |
+| MonsterSlayerQuest | `monster-slayer-quests` |
+| PassiveFestival | `passive-festivals` |
+
+- 每个子文件夹的 JSON/CSV 只包含该类型的数据，`counts` 也只统计该类型。
+- 未选中的类型不会生成目录。
+- 拆分模式不会删除之前生成的根目录 `exports/entities.*`，需要时请手动清理。
 
 ## 语言检测
 

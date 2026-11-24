@@ -107,6 +107,13 @@ namespace ExportAllItems
                 () => Translate("config.export-all-languages.name"),
                 () => Translate("config.export-all-languages.tooltip")
             );
+            configMenu.AddBoolOption(
+                this.ModManifest,
+                () => this.Config.SplitByType,
+                value => this.Config.SplitByType = value,
+                () => Translate("config.split-by-type.name"),
+                () => Translate("config.split-by-type.tooltip")
+            );
 
             configMenu.AddSectionTitle(this.ModManifest, () => Translate("config.section-types"));
 
@@ -175,15 +182,22 @@ namespace ExportAllItems
 
                 this.Monitor.Log("Collecting and exporting data...", LogLevel.Info);
 
-                EntityExporter exporter = new(this.Helper, this.Monitor, this.Config.ExportAllLanguages, selectedTypes);
+                EntityExporter exporter = new(
+                    this.Helper,
+                    this.Monitor,
+                    this.Config.ExportAllLanguages,
+                    selectedTypes,
+                    this.Config.SplitByType
+                );
                 ExportResult result = exporter.Export();
 
                 this.Monitor.Log(
                     $"Exported {result.EntityCount} records. Languages: {string.Join(", ", result.Languages)}.",
                     LogLevel.Info
                 );
-                this.Monitor.Log($"JSON: {result.JsonPath}", LogLevel.Info);
-                this.Monitor.Log($"CSV: {result.CsvPath}", LogLevel.Info);
+                this.Monitor.Log($"Wrote {result.OutputPaths.Count} file(s):", LogLevel.Info);
+                foreach (string outputPath in result.OutputPaths)
+                    this.Monitor.Log(outputPath, LogLevel.Info);
             }
             catch (Exception ex)
             {

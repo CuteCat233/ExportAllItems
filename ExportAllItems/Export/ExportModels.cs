@@ -79,7 +79,6 @@ namespace ExportAllItems.Export
     /// <summary>一次导出的结果摘要。</summary>
     /// <param name="EntityCount">导出的实体数量。</param>
     /// <param name="Languages">导出的语言代码。</param>
-    /// <param name="JsonPath">JSON 文件路径。</param>
-    /// <param name="CsvPath">CSV 文件路径。</param>
-    internal sealed record ExportResult(int EntityCount, IReadOnlyList<string> Languages, string JsonPath, string CsvPath);
+    /// <param name="OutputPaths">写出的 JSON/CSV 文件路径。</param>
+    internal sealed record ExportResult(int EntityCount, IReadOnlyList<string> Languages, IReadOnlyList<string> OutputPaths);
 }

@@ -56,6 +56,9 @@ namespace ExportAllItems.Export
         /// <summary>选中的导出类型。</summary>
         private readonly ISet<string> SelectedTypes;
 
+        /// <summary>是否按类型拆分到独立子文件夹。</summary>
+        private readonly bool SplitByType;
+
 
         /*********
         ** 公共方法
@@ -65,12 +68,20 @@ namespace ExportAllItems.Export
         /// <param name="monitor">日志接口。</param>
         /// <param name="exportAllLanguages">是否导出所有已安装语言。</param>
         /// <param name="selectedTypes">要导出的类型集合。</param>
-        public EntityExporter(IModHelper helper, IMonitor monitor, bool exportAllLanguages, ISet<string> selectedTypes)
+        /// <param name="splitByType">是否按类型拆分到独立子文件夹。</param>
+        public EntityExporter(
+            IModHelper helper,
+            IMonitor monitor,
+            bool exportAllLanguages,
+            ISet<string> selectedTypes,
+            bool splitByType
+        )
         {
             this.Helper = helper;
             this.Monitor = monitor;
             this.ExportAllLanguages = exportAllLanguages;
             this.SelectedTypes = selectedTypes;
+            this.SplitByType = splitByType;
         }
 
         /// <summary>收集实体、解析多语言名称并写入导出文件。</summary>
@@ -115,14 +126,44 @@ namespace ExportAllItems.Export
             string outputDirectory = Path.Combine(this.Helper.DirectoryPath, OutputFolderName);
             Directory.CreateDirectory(outputDirectory);
 
-            string jsonPath = Path.Combine(outputDirectory, "entities.json");
-            string csvPath = Path.Combine(outputDirectory, "entities.csv");
-
             string[] languageColumns = languages.Select(language => language.Column).ToArray();
+            List<string> outputPaths = new();
+
+            if (this.SplitByType)
+            {
+                foreach (IGrouping<string, EntityRecord> group in records
+                    .GroupBy(record => record.Type)
+                    .OrderBy(group => group.Key, StringComparer.Ordinal))
+                {
+                    string typeDirectory = Path.Combine(outputDirectory, GetTypeFolderName(group.Key));
+                    this.WriteExportFiles(typeDirectory, languages, group.ToList(), outputPaths);
+                }
+            }
+            else
+            {
+                this.WriteExportFiles(outputDirectory, languages, records, outputPaths);
+            }
+
+            return new ExportResult(records.Count, languageColumns, outputPaths);
+        }
+
+        /// <summary>把一组记录写入指定目录的 entities.json / entities.csv。</summary>
+        private void WriteExportFiles(
+            string directory,
+            IReadOnlyList<ExportLanguage> languages,
+            IReadOnlyList<EntityRecord> records,
+            List<string> outputPaths
+        )
+        {
+            Directory.CreateDirectory(directory);
+
+            string jsonPath = Path.Combine(directory, "entities.json");
+            string csvPath = Path.Combine(directory, "entities.csv");
+
             ExportDocument document = new()
             {
                 GeneratedAtUtc = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture),
-                Languages = languageColumns,
+                Languages = languages.Select(language => language.Column).ToArray(),
                 Counts = records
                     .GroupBy(record => record.Type)
                     .ToDictionary(group => group.Key, group => group.Count()),
@@ -133,7 +174,29 @@ namespace ExportAllItems.Export
             File.WriteAllText(jsonPath, json, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
             File.WriteAllText(csvPath, BuildCsv(languages, records), new UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
 
-            return new ExportResult(records.Count, languageColumns, jsonPath, csvPath);
+            outputPaths.Add(jsonPath);
+            outputPaths.Add(csvPath);
+        }
+
+        /// <summary>获取每种导出类型对应的子文件夹名称。</summary>
+        private static string GetTypeFolderName(string type)
+        {
+            return type switch
+            {
+                ExportTypes.Item => "item",
+                ExportTypes.Location => "locations",
+                ExportTypes.Npc => "npcs",
+                ExportTypes.Concession => "concessions",
+                ExportTypes.Buff => "buffs",
+                ExportTypes.Power => "powers",
+                ExportTypes.FarmAnimal => "farm-animals",
+                ExportTypes.Pet => "pets",
+                ExportTypes.Mannequin => "mannequins",
+                ExportTypes.MinecartDestination => "minecart-destinations",
+                ExportTypes.MonsterSlayerQuest => "monster-slayer-quests",
+                ExportTypes.PassiveFestival => "passive-festivals",
+                _ => type.ToLowerInvariant()
+            };
         }
 
 

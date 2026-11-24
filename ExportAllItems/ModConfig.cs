@@ -11,6 +11,9 @@ namespace ExportAllItems
         /// <summary>是否导出所有已安装语言；关闭时只导出英文和当前游戏语言。</summary>
         public bool ExportAllLanguages { get; set; } = true;
 
+        /// <summary>是否按类型拆分导出到独立子文件夹。</summary>
+        public bool SplitByType { get; set; } = false;
+
         /// <summary>是否导出物品。</summary>
         public bool ExportItems { get; set; } = true;
 

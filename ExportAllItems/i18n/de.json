@@ -4,6 +4,8 @@
   "config.export-key.tooltip": "Drücke im Spiel diese Taste, um zu exportieren. Stelle sie auf „Keine“, um die Tastenkombination zu deaktivieren.",
   "config.export-all-languages.name": "Alle Sprachen exportieren",
   "config.export-all-languages.tooltip": "Wenn deaktiviert, werden nur Englisch und die aktuelle Spielsprache exportiert.",
+  "config.split-by-type.name": "Dateien nach Typ aufteilen",
+  "config.split-by-type.tooltip": "Jeden exportierten Typ in einen eigenen Unterordner schreiben, statt in eine gemeinsame Datei.",
   "config.section-types": "Exporttypen",
   "config.types.tooltip": "Diesen Typ in den Export aufnehmen.",
   "config.types.items": "Gegenstände",

@@ -4,6 +4,8 @@
   "config.export-key.tooltip": "게임 중 이 키를 누르면 내보냅니다. '없음'으로 설정하면 단축키를 비활성화합니다.",
   "config.export-all-languages.name": "모든 언어 내보내기",
   "config.export-all-languages.tooltip": "비활성화하면 영어와 현재 게임 언어만 내보냅니다.",
+  "config.split-by-type.name": "유형별로 파일 분할",
+  "config.split-by-type.tooltip": "내보낸 각 유형을 하나의 통합 파일 대신 별도 하위 폴더에 기록합니다.",
   "config.section-types": "내보낼 유형",
   "config.types.tooltip": "이 유형을 내보내기에 포함합니다.",
   "config.types.items": "아이템",

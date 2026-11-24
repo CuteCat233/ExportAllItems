@@ -4,6 +4,8 @@
   "config.export-key.tooltip": "Press this key in-game to export. Set to None to disable the shortcut.",
   "config.export-all-languages.name": "Export all languages",
   "config.export-all-languages.tooltip": "When disabled, only English and the current game language are exported.",
+  "config.split-by-type.name": "Split files by type",
+  "config.split-by-type.tooltip": "Write each exported type to its own subfolder instead of one combined file.",
   "config.section-types": "Export types",
   "config.types.tooltip": "Include this type in the export.",
   "config.types.items": "Items",
